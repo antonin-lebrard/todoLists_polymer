@@ -1,0 +1,78 @@
+<!--
+  Copyright (c) 2015, <your name>. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<dom-module id="component-add">
+    <style>
+        :host {
+            position: relative;
+            height: 880px;
+        }
+        .component {
+            position: relative;
+            top: 100px;
+            width: 340px;
+            height: 80%;
+            margin-left: 5px;
+            margin-right: 5px;
+            background-color: #fff;
+        }
+        container{
+            height: inherit;
+            overflow: hidden;
+        }
+        #category{
+            position: relative;
+            bottom: 10px;
+        }
+        #inputBackground{
+            position: relative;
+            top: 280px;
+            background-color: #fff;
+            width: 220px;
+            height: 0;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-left: 45px;
+            padding-bottom: 50px;
+            color: #5b5b5b;
+            z-index: 1;
+        }
+        @-webkit-keyframes red-fade-in { from {height:0; background: #fff;} to {height: 100%; background: #B65F5F;} }
+        @-webkit-keyframes red-fade-out { from {background: #B65F5F; height: 100%;} to {background: #fff; height:0;} }
+        @-webkit-keyframes box-shadow-and-border-fade-in { from {box-shadow:0; border:0;} to {box-shadow: 2px 2px 5px 0 rgba(128,128,128,0.6); border: 1px solid #9D9D9D;} }
+        @-webkit-keyframes box-shadow-and-border-fade-out { from {box-shadow: 2px 2px 5px 0 rgba(128,128,128,0.6); border: 1px solid #9D9D9D;} to {box-shadow:0; border:0;} }
+        @-webkit-keyframes box-shadow-and-border-compo-fade-in { from {border:0; box-shadow: 0;} to {border: lightgray 1px solid; box-shadow: 1px 1px 5px 0 rgba(128, 128, 128, 0.6);} }
+        @-webkit-keyframes box-shadow-and-border-compo-fade-out { from {border: lightgray 1px solid; box-shadow: 1px 1px 5px 0 rgba(128, 128, 128, 0.6);} to {border:0; box-shadow: 0;} }
+        @keyframes red-fade-in { from {height:0; background: #fff;} to {height: 100%; background: #B65F5F;} }
+        @keyframes red-fade-out { from {background: #B65F5F; height: 100%;} to {background: #fff; height:0;} }
+        @keyframes box-shadow-and-border-fade-in { from {box-shadow:0; border:0;} to {box-shadow: 2px 2px 5px 0 rgba(128,128,128,0.6); border: 1px solid #9D9D9D;} }
+        @keyframes box-shadow-and-border-fade-out { from {box-shadow: 2px 2px 5px 0 rgba(128,128,128,0.6); border: 1px solid #9D9D9D;} to {box-shadow:0; border:0;} }
+        @keyframes box-shadow-and-border-compo-fade-in { from {border:0; box-shadow: 0;} to {border: lightgray 1px solid; box-shadow: 1px 1px 5px 0 rgba(128, 128, 128, 0.6);} }
+        @keyframes box-shadow-and-border-compo-fade-out { from {border: lightgray 1px solid; box-shadow: 1px 1px 5px 0 rgba(128, 128, 128, 0.6);} to {border:0; box-shadow: 0;} }
+        @-moz-keyframes red-fade-in { from {height:0; background: #fff;} to {height: 100%; background: #B65F5F;} }
+        @-moz-keyframes red-fade-out { from {background: #B65F5F; height: 100%;} to {background: #fff; height:0;} }
+        @-moz-keyframes box-shadow-and-border-fade-in { from {box-shadow:0; border:0;} to {box-shadow: 2px 2px 5px 0 rgba(128,128,128,0.6); border: 1px solid #9D9D9D;} }
+        @-moz-keyframes box-shadow-and-border-fade-out { from {box-shadow: 2px 2px 5px 0 rgba(128,128,128,0.6); border: 1px solid #9D9D9D;} to {box-shadow:0; border:0;} }
+        @-moz-keyframes box-shadow-and-border-compo-fade-in { from {border:0; box-shadow: 0;} to {border: lightgray 1px solid; box-shadow: 1px 1px 5px 0 rgba(128, 128, 128, 0.6);} }
+        @-moz-keyframes box-shadow-and-border-compo-fade-out { from {border: lightgray 1px solid; box-shadow: 1px 1px 5px 0 rgba(128, 128, 128, 0.6);} to {border:0; box-shadow: 0;} }
+        #redBackground {
+            background: #fff;
+            width: 100%;
+            top: 0;
+            height: 100%;
+
+            position: absolute;
+            z-index: 0;
+        }
+    </style>
+    <template>
+        <div id="component" class="component" style="overflow: hidden">
+            <div id="inputBackground">
+                <paper-input id="category" label="Add Category"></paper-input>
+            </div>
+            <div id="redBackground"></div>
+        </div>
+    </template>
+</dom-module>

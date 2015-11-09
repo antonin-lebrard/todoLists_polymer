@@ -1,0 +1,65 @@
+<!--
+  Copyright (c) 2015, <your name>. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<dom-module id="note-block">
+    <style>
+        :host {
+            display: inline;
+        }
+        .note {
+            position: relative;
+            margin-bottom: 2px;
+            margin-right: 2px;
+            -webkit-animation: appear 500ms;
+            animation: appear 500ms;
+            -moz-animation: appear 500ms;
+        }
+        @-webkit-keyframes appear { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes appear { from {opacity: 0;} to {opacity: 1;} }
+        @-moz-keyframes appear { from {opacity: 0;} to {opacity: 1;} }
+        .note>div {
+            float: left;
+        }
+        .noteStyle {
+            height: 45px;
+            background-color: #03a9f4;
+            box-shadow: 2px 2px 5px 0 rgba(128,128,128,0.6);
+        }
+        .noteContent {
+            float: left;
+            margin-left: 10px;
+        }
+        .noteGoogleLink {
+            margin-top: 12px;
+            cursor: pointer;
+        }
+        .noteName {
+            margin-top: 11px;
+            font-family: Verdana;
+            max-width: 261px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .noteDel{
+            float: right;
+            margin-right: 12px;
+            margin-top: 11px;
+            opacity: 0;
+        }
+        .noteDel:hover{
+            cursor: pointer;
+            opacity: 0.65;
+        }
+    </style>
+
+    <template>
+        <div class="note noteStyle">
+            <img id="google" src="../google.png" width="15" height="15" class="noteContent noteGoogleLink">
+            <div class="noteContent noteName">{{note_name}}</div>
+            <img id="del" src="../delete.png" width="20" height="20" class="noteContent noteDel">
+        </div>
+    </template>
+</dom-module>

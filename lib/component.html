@@ -1,0 +1,69 @@
+<!--
+  Copyright (c) 2015, <your name>. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<dom-module id="component-block">
+    <style>
+        :host {
+            position: relative;
+            height: 880px;
+        }
+        @-webkit-keyframes appear { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes appear { from {opacity: 0;} to {opacity: 1;} }
+        @-moz-keyframes appear { from {opacity: 0;} to {opacity: 1;} }
+        .component {
+            position: relative;
+            top: 100px;
+            width: 340px;
+            height: 80%;
+            margin-left: 5px;
+            margin-right: 5px;
+            border: lightgray 1px solid;
+            border-radius: 0;
+            padding: 2px;
+            box-shadow: 1px 1px 5px 0 rgba(128,128,128,0.6);
+            -webkit-animation: appear 500ms;
+            animation: appear 500ms;
+            -moz-animation: appear 500ms;
+        }
+        .note {
+            position: relative;
+            margin-bottom: 2px;
+            margin-left: 3px;
+            margin-right: 2px;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+        .note>div {
+            float: left;
+        }
+        #search{
+            margin-bottom: 16px;
+        }
+        #compoTitle{
+            margin-left: 0;
+        }
+        container{
+            height: inherit;
+            overflow: auto;
+        }
+        paper-toolbar{
+            background-color: #fff;
+            color: #5b5b5b;
+        }
+    </style>
+    <template>
+        <div id="compoDiv" class="component" style="overflow: auto">
+            <paper-toolbar>
+                <div id="compoTitle" class="title">{{component_name}}</div>
+                <paper-input id="search" label="Search"></paper-input>
+            </paper-toolbar>
+            <div id="addDiv" class="note">
+                <paper-input no-label-float id="add" style="width: 100%;"></paper-input>
+            </div>
+
+            <content select="container"></content>
+        </div>
+    </template>
+</dom-module>
