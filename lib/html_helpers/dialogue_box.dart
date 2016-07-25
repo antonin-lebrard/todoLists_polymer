@@ -166,7 +166,7 @@ class DialogueBox{
              ..closePath()
              ..stroke();
     }
-    print("Je suis passé par la");
+    print("Je suis passÃ© par la");
     wrapText(context);
   }
   

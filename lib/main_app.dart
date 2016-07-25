@@ -4,14 +4,11 @@ library perso_poly.lib.main_app;
 import 'dart:html';
 import 'dart:convert';
 
-import 'package:polymer_elements/paper_toolbar.dart';
-import 'package:polymer_elements/paper_input.dart';
 import 'package:polymer/polymer.dart';
+import 'package:polymer_elements/paper_input.dart';
+import 'package:polymer_elements/paper_button.dart';
 import 'package:web_components/web_components.dart';
 
-import 'component.dart';
-import 'note.dart';
-import 'componentAdd.dart';
 import 'bridgeMainAppComponent.dart';
 import 'contactServer.dart';
 
@@ -41,6 +38,12 @@ class MainApp extends PolymerElement {
         getAll(username.value);
       }
     });
+    PaperButton save2json = this.querySelector('#save');
+    save2json.onClick.listen((e){
+      if (username.value.length == 0)
+        return;
+      save(username.value);
+    });
   }
   detached() {
     super.detached();
@@ -61,4 +64,17 @@ class MainApp extends PolymerElement {
       _bridge.constructPrevComponents(content);
     });
   }
+
+  void save(String user){
+    contactServer.user = user;
+    contactServer.getAll().then((Map<String, List<String>> content){
+      Map<String, dynamic> truSave = {user: content};
+      AnchorElement a = document.createElement('a');
+      a.setAttribute("href", 'data:text/plain;charset=utf-8,' + Uri.encodeComponent(JSON.encode(truSave)));
+      a.setAttribute("download", "save.txt");
+      Event event = new Event("click");
+      a.dispatchEvent(event);
+    });
+  }
+  
 }
