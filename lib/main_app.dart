@@ -3,6 +3,7 @@ library perso_poly.lib.main_app;
 
 import 'dart:html';
 import 'dart:convert';
+import 'dart:async';
 
 import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/paper_input.dart';
@@ -44,6 +45,22 @@ class MainApp extends PolymerElement {
         return;
       save(username.value);
     });
+    PaperButton loadFromJson = this.querySelector('#load');
+    loadFromJson.onClick.listen((e){
+      InputElement input = querySelector("#file");
+      input.onChange.listen((_){
+        FileList list = input.files;
+        if (list.isEmpty) return;
+        File file = list.first;
+        FileReader reader = new FileReader();
+        reader.onLoad.listen((_){
+          load(reader.result.toString(), username.value);
+        });
+        reader.onError.listen((_) => print("error ${reader.error.code}"));
+        reader.readAsText(file);
+      });
+      input.click();
+    });
   }
   detached() {
     super.detached();
@@ -61,7 +78,8 @@ class MainApp extends PolymerElement {
       e.style.display = "none";
     });
     contactServer.getAll().then((Map<String, List<String>> content){
-      _bridge.constructPrevComponents(content);
+      if (content is Map)
+        _bridge.constructPrevComponents(content);
     });
   }
 
@@ -76,5 +94,45 @@ class MainApp extends PolymerElement {
       a.dispatchEvent(event);
     });
   }
-  
+
+  Future load(String toLoad, String curUser) async {
+    Map<String, dynamic> userContent = JSON.decode(toLoad);
+    if (userContent == null || userContent.isEmpty) return;
+    Map<String, List<String>> loadedContent = userContent.values.first;
+    if (loadedContent == null || loadedContent.isEmpty) return;
+    if (curUser == "") contactServer.user = userContent.keys.first;
+    else contactServer.user = curUser;
+    contactServer.getAll().then((Map<String, List<String>> otherContent) async{
+      Map<String, Map<String, dynamic>> diff = makeDiff(loadedContent, otherContent);
+      await Future.forEach(diff.keys, (String key) async {
+        Map<String, dynamic> value = diff[key];
+        if (value["isToAdd"]){
+          await contactServer.addType(key);
+        }
+        await Future.forEach(value["notes"], (String note) async {
+          print("adding $note");
+          await contactServer.addNote(key, note);
+        });
+      });
+      getAll(curUser);
+    });
+  }
+
+  Map<String, Map<String, dynamic>> makeDiff(Map<String, List<String>> toLoad, Map<String, List<String>> original){
+    Map<String, Map<String, dynamic>> diff = new Map();
+    toLoad.keys.forEach((String key){
+      diff[key] = {"isToAdd": false, "notes": new List<String>()};
+      if (!original.containsKey(key)){
+        diff[key]["isToAdd"] = true;
+        original[key] = new List<String>();
+      }
+      toLoad[key].forEach((String note){
+        if (!original[key].contains(note)){
+          diff[key]["notes"].add(note);
+        }
+      });
+    });
+    return diff;
+  }
+
 }

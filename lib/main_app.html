@@ -29,6 +29,11 @@
       margin-right: 30px;
       background: #cf373b;
     }
+    #load{
+      top: 25%;
+      margin-right: 30px;
+      background: #cf373b;
+    }
     #username{
       position: relative;
       bottom: 10px;
@@ -55,6 +60,8 @@
     <paper-toolbar id="titleBar">
       <div id="titleBarTitle" class="title">TODO Lists</div>
       <paper-button raised id="save">save2json</paper-button>
+      <paper-button raised id="load">loadfromjson</paper-button>
+      <input style="display:none;" type="file" id="file" name="file"/>
       <div id="inputBackground">
         <paper-input id="username" label="Username"></paper-input>
       </div>
